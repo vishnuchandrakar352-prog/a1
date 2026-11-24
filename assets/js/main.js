@@ -1,0 +1,47 @@
+(function(){
+var b=document.querySelector('.burger'),n=document.getElementById('nav');
+if(b&&n)b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');b.setAttribute('aria-label',o?'Close menu':'Open menu');});
+function $(i){return document.getElementById(i);}
+var f=$('cform');
+if(f)f.addEventListener('submit',function(e){e.preventDefault();var fm=$('fm');
+ if($('website').value)return;
+ if(!f.checkValidity()){fm.hidden=false;fm.textContent='Please add your name, a valid email address and a message, and tick the agreement box.';return;}
+ var body='Name: '+$('name').value+'\nEmail: '+$('email').value+'\nTopic: '+$('topic').value+'\n\n'+$('message').value;
+ location.href='mailto:'+f.getAttribute('data-to')+'?subject='+encodeURIComponent(f.getAttribute('data-brand')+': '+$('topic').value)+'&body='+encodeURIComponent(body);
+ fm.hidden=false;fm.textContent='Your email app should open with the message ready to send. If nothing happens, write to us directly at '+f.getAttribute('data-to')+'.';});
+var c=$('cookie'),k=null;try{k=localStorage.getItem('ck_'+location.hostname);}catch(e){}
+if(c&&!k)c.classList.add('show');
+if(c)c.querySelectorAll('button').forEach(function(bt){bt.addEventListener('click',function(){try{localStorage.setItem('ck_'+location.hostname,bt.getAttribute('data-cookie'));}catch(e){}c.classList.remove('show');});});
+var y=$('year');if(y)y.textContent=new Date().getFullYear();
+})();
+(function(){var d=document.documentElement,rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+[].forEach.call(document.querySelectorAll('.stg'),function(g){[].forEach.call(g.children,function(c,i){c.style.transitionDelay=(i*110)+'ms';});});
+function cnt(el){var to=parseFloat(el.getAttribute('data-count')),dec=(el.getAttribute('data-count').split('.')[1]||'').length,t0=null,dur=1600;if(rm){el.textContent=to.toFixed(dec);return;}function f(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);el.textContent=(to*e).toFixed(dec);if(p<1)requestAnimationFrame(f);}requestAnimationFrame(f);}
+var els=[].slice.call(document.querySelectorAll('.rv,[data-count]'));
+if(rm||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');if(e.hasAttribute('data-count'))e.textContent=e.getAttribute('data-count');});}
+else{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var ts=(e.target.__rv||[]).concat(els.indexOf(e.target)>-1?[e.target]:[]);ts.forEach(function(t){t.classList.add('in');if(t.hasAttribute('data-count'))cnt(t);});io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px',threshold:.01});
+ els.forEach(function(e){var o=e;if(e.classList.contains('rv-c')||e.classList.contains('rv-w')){o=e.parentElement;}if(o!==e){(o.__rv=o.__rv||[]).push(e);}io.observe(o);});
+ setTimeout(function(){els.forEach(function(e){var r=e.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)e.classList.add('in');});},1200);}
+var px=[].slice.call(document.querySelectorAll('[data-px]')),pr=document.getElementById('prog'),tk=false;
+function upd(){var h=innerHeight;if(!rm)px.forEach(function(el){var r=el.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;var s=+el.getAttribute('data-px');el.style.transform='translate3d(0,'+((r.top+r.height/2-h/2)*s).toFixed(1)+'px,0) scale(1.14)';});
+ if(pr){var m=d.scrollHeight-h;pr.style.width=(m>0?scrollY/m*100:0)+'%';}d.classList.toggle('scd',scrollY>60);tk=false;}
+addEventListener('scroll',function(){if(!tk){requestAnimationFrame(upd);tk=true;}},{passive:true});addEventListener('resize',upd);upd();
+[].forEach.call(document.querySelectorAll('.hs'),function(s){var down=false,x0=0,s0=0,mv=0;s.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse')return;down=true;mv=0;x0=e.clientX;s0=s.scrollLeft;s.classList.add('drag');});addEventListener('pointerup',function(){down=false;s.classList.remove('drag');});s.addEventListener('pointermove',function(e){if(!down)return;mv=Math.abs(e.clientX-x0);s.scrollLeft=s0-(e.clientX-x0);});s.addEventListener('click',function(e){if(mv>6){e.preventDefault();e.stopPropagation();}},true);});
+})();
+(function(){function $(i){return document.getElementById(i);}
+var A=[].slice.call(document.querySelectorAll('.bs-pin')),L=[].slice.call(document.querySelectorAll('#an-l li'));function an(k){A.forEach(function(p,i){p.classList.toggle('on',i===k);p.setAttribute('aria-pressed',i===k);});L.forEach(function(l,i){l.classList.toggle('on',i===k);});}
+A.forEach(function(p,i){p.addEventListener('click',function(){an(i);});});L.forEach(function(l,i){l.addEventListener('mouseenter',function(){an(i);});});if(A.length)an(0);
+function sz(){var c=+$('sz-c').value,h=+$('sz-h').value,w=+$('sz-w').value;$('sz-cv').textContent=c+' in';$('sz-hv').textContent=Math.floor(h/12)+' ft '+(h%12)+' in';$('sz-wv').textContent=w+' in';
+ var L=h<67?['S','Short']:h<=72?['R','Regular']:h<=75?['L','Long']:['XL','Extra long'];var s=c%2?c+1:c;$('sz-s').textContent=s+L[0];$('sz-l').textContent=L[1];var d=c-w;$('sz-d').textContent=d+' in';$('sz-t').textContent=w;
+ $('sz-n').textContent=d>=7?'An athletic drop: look for a suit sold as separates, or ask for the trousers to be taken in.':d<=3?'A small drop: a fuller cut or made-to-measure will sit better than a slim fit.':'A standard drop of about six inches: most suits will fit with simple alterations.';
+ var t=$('sz-s');t.style.transform='scale(1.06)';setTimeout(function(){t.style.transform='';},200);}
+if($('sz-c')){['sz-c','sz-h','sz-w'].forEach(function(i){$(i).addEventListener('input',sz);});sz();}
+var CL={'0-0':['Lightweight worsted','A smooth, crease-resistant wool that handles a full day at a desk.','9–10 oz','Plain or twill','Mid grey','plain','#6B7280'],'0-1':['Fresco','An open, breathable weave that keeps its shape in warm rooms.','9 oz','Open plain weave','Light grey or navy','plain','#8A93A6'],'0-2':['Cotton drill','Relaxed and soft, best unlined for weekends.','10 oz','Twill','Stone or olive','twill','#B4A68A'],'0-3':['Mohair blend','A subtle sheen that looks good under evening light.','9 oz','Plain','Midnight navy','plain','#1D2A44'],
+'1-0':['Tropical wool','Very light and airy for hot offices.','7–8 oz','Plain weave','Light grey','plain','#A3A9B5'],'1-1':['Linen','Cool and relaxed; creases are part of its charm.','8–9 oz','Plain','Sand or pale blue','slub','#D8C9A8'],'1-2':['Seersucker','Puckered cotton that sits away from the skin.','6–7 oz','Puckered stripe','Blue and white','stripe','#9DB4D2'],'1-3':['Silk and linen','A light cloth with a soft lustre for warm evenings.','7 oz','Plain','Ivory or tan','slub','#E6DCC4'],
+'2-0':['Flannel','Soft, warm and matte; a classic for cooler days.','11–13 oz','Brushed twill','Charcoal','flannel','#4B5060'],'2-1':['Worsted with a stripe','Smart and sharp for a daytime ceremony.','10–11 oz','Twill with chalk stripe','Navy','pinstripe','#1D2A44'],'2-2':['Tweed','Rugged and textured, made for walks and country weekends.','12–14 oz','Herringbone','Brown or green','herring','#6B5A3E'],'2-3':['Velvet','Rich and soft, perfect for a dinner jacket.','12 oz','Pile','Bottle green or burgundy','plain','#6E1F2E'],
+'3-0':['Heavy flannel','Warm enough for a winter commute without a sweater.','13–14 oz','Brushed twill','Dark grey','flannel','#3A3F4D'],'3-1':['Heavy worsted','A warmer cloth that still drapes cleanly.','12 oz','Twill','Charcoal or navy','twill','#2C3B5A'],'3-2':['Donegal tweed','Flecked with colour, thick and very hard-wearing.','14–16 oz','Plain with flecks','Oatmeal','fleck','#A6977A'],'3-3':['Barathea','A fine, slightly pebbled cloth for black tie.','11 oz','Barathea','Black or midnight','plain','#141E33']};
+function pat(t,c){var l='rgba(255,255,255,.14)',d='rgba(0,0,0,.18)';return t==='pinstripe'?'repeating-linear-gradient(90deg,transparent 0 22px,rgba(244,240,230,.6) 22px 23px),'+c:t==='stripe'?'repeating-linear-gradient(90deg,#fff 0 10px,'+c+' 10px 20px)':t==='herring'?'repeating-linear-gradient(45deg,'+d+' 0 4px,transparent 4px 8px) 0 0/16px 32px,repeating-linear-gradient(-45deg,'+l+' 0 4px,transparent 4px 8px) 0 16px/16px 32px,'+c:t==='twill'?'repeating-linear-gradient(45deg,'+l+' 0 2px,transparent 2px 6px),'+c:t==='flannel'?'radial-gradient('+l+' 1px,transparent 1.5px) 0 0/5px 5px,'+c:t==='fleck'?'radial-gradient(#C0392B 1px,transparent 2px) 0 0/23px 19px,radial-gradient(#2E7D4F 1px,transparent 2px) 7px 9px/29px 23px,radial-gradient('+d+' 1px,transparent 2px) 0 0/6px 6px,'+c:t==='slub'?'repeating-linear-gradient(90deg,'+l+' 0 1px,transparent 1px 7px),repeating-linear-gradient(0deg,'+d+' 0 1px,transparent 1px 9px),'+c:'repeating-linear-gradient(90deg,'+d+' 0 1px,transparent 1px 3px),repeating-linear-gradient(0deg,'+l+' 0 1px,transparent 1px 3px),'+c;}
+var sa=2,sb=0;function cl(){var c=CL[sa+'-'+sb];$('cl-t').textContent=c[0];$('cl-d').textContent=c[1];$('cl-w').textContent=c[2];$('cl-v').textContent=c[3];$('cl-c').textContent=c[4];$('cl-n').textContent=c[0];$('cl-s').style.background=pat(c[5],c[6]);}
+function sg(id,cb){var bs=[].slice.call(document.querySelectorAll('#'+id+' button'));bs.forEach(function(b){b.setAttribute('aria-pressed',b.classList.contains('on'));b.addEventListener('click',function(){bs.forEach(function(o){o.classList.toggle('on',o===b);o.setAttribute('aria-pressed',o===b);});cb(+b.dataset.v);cl();});});}
+if($('cl-s')){sg('cl-a',function(v){sa=v;});sg('cl-b',function(v){sb=v;});cl();}
+})();
